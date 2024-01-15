@@ -1,0 +1,1 @@
+RedesSociales:CantCorreos=10,Frecuencia=10000,Aleatorización=true,Tipo=3-

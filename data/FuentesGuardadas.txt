@@ -1,0 +1,1 @@
+Spammer:1,MediosInformativos:2,Publicidad:3,RedesSociales:3,Usuarios:3,Cubadebate:2,ElPais:2,Granma:2,JuventudRebelde:2,TheNewYorkTimes:2

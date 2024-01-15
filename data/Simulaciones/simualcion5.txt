@@ -1,0 +1,1 @@
+Clasificador: LearningAntiSpamFilter - Fuente:RedesSociales - Cantidad de correos:20 - VP:0 - VN:11 - FP:0 - FN:9 - Exactitud:0.55 - Precision:1.0 - Cobertura:0.0

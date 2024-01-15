@@ -1,0 +1,1 @@
+Publicidad:CantCorreos=5,Frecuencia=10000,Aleatorización=false,Tipo=3-MediosInformativos:CantCorreos=10,Frecuencia=10000,TamañoMin=0,Tipo=2-

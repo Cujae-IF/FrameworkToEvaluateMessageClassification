@@ -1,0 +1,65 @@
+Return-Path: <todos-bounces@listas.cujae.edu.cu>
+Received: from cetus.cujae.edu.cu ([unix socket])
+	by cetus (Cyrus v2.1.18-IPv6-Debian-2.1.18-2ubuntu2) with LMTP; Fri, 25 Jan 2019 14:23:46 -0500
+X-Sieve: CMU Sieve 2.2
+Received: from mx-interno.cujae.edu.cu (mx-interno.cujae.edu.cu [10.8.6.215])
+	by cetus.cujae.edu.cu (Postfix) with ESMTP id 6256A1A00E4;
+	Fri, 25 Jan 2019 14:23:44 -0500 (CST)
+Received: from listas.cujae.edu.cu (listas.cujae.edu.cu [10.8.6.65])
+	by mx-interno.cujae.edu.cu (Postfix) with ESMTP id 062214020B;
+	Fri, 25 Jan 2019 14:33:26 -0500 (CST)
+Received: from LISTAS-2018.cujae.edu.cu (localhost [127.0.0.1])
+	by listas.cujae.edu.cu (Postfix) with ESMTP id 82223A1EE4;
+	Fri, 25 Jan 2019 14:31:17 -0500 (CST)
+Received: from horus.cujae.edu.cu (horus.cujae.edu.cu [10.8.6.212])
+ by listas.cujae.edu.cu (Postfix) with ESMTP id 350BBA0836
+ for <todos@listas.cujae.edu.cu>; Fri, 25 Jan 2019 14:29:36 -0500 (CST)
+Received: from tesla.cujae.edu.cu (mecamail.cujae.edu.cu [10.8.6.34])
+ by horus.cujae.edu.cu (Postfix) with ESMTP id 3080CA0259
+ for <todos@listas.cujae.edu.cu>; Fri, 25 Jan 2019 14:29:34 -0500 (CST)
+Received: from Glorfindel by tesla.cujae.edu.cu (MDaemon PRO v10.1.2)
+ with ESMTP id md50010160738.msg
+ for <todos@listas.cujae.edu.cu>; Fri, 25 Jan 2019 14:28:17 -0500
+X-Spam-Processed: tesla.cujae.edu.cu, Fri, 25 Jan 2019 14:28:17 -0500
+ (not processed: spam filter heuristic analysis disabled)
+X-Authenticated-Sender: informacioncujae@tesla.cujae.edu.cu
+X-MDRemoteIP: 10.8.27.81
+X-Return-Path: informacioncujae@tesla.cujae.edu.cu
+X-Envelope-From: informacioncujae@tesla.cujae.edu.cu
+X-MDaemon-Deliver-To: todos@listas.cujae.edu.cu
+Message-ID: <1548444548.10832.61.camel@tesla.cujae.edu.cu>
+From: =?ISO-8859-1?Q?Informaci=F3n?= CUJAE
+ <informacioncujae@tesla.cujae.edu.cu>
+To: Todos CUJAE <todos@listas.cujae.edu.cu>
+Date: Fri, 25 Jan 2019 14:29:08 -0500
+X-Mailer: Evolution 3.18.5.2-0ubuntu3.2 
+Mime-Version: 1.0
+X-Mailman-Approved-At: Fri, 25 Jan 2019 14:31:02 -0500
+Subject: [Todos] =?iso-8859-1?q?Detalles_sobre_la_organizaci=F3n_de_la_Mar?=
+ =?iso-8859-1?q?cha_de_las_Antorchas?=
+X-BeenThere: todos@listas.cujae.edu.cu
+X-Mailman-Version: 2.1.20
+Precedence: list
+List-Id: Todos Cujae <todos.listas.cujae.edu.cu>
+List-Unsubscribe: <http://listas.cujae.edu.cu/cgi-bin/mailman/options/todos>, 
+ <mailto:todos-request@listas.cujae.edu.cu?subject=unsubscribe>
+List-Archive: <http://listas.cujae.edu.cu/pipermail/todos/>
+List-Post: <mailto:todos@listas.cujae.edu.cu>
+List-Help: <mailto:todos-request@listas.cujae.edu.cu?subject=help>
+List-Subscribe: <http://listas.cujae.edu.cu/cgi-bin/mailman/listinfo/todos>,
+ <mailto:todos-request@listas.cujae.edu.cu?subject=subscribe>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Errors-To: todos-bounces@listas.cujae.edu.cu
+Sender: "Todos" <todos-bounces@listas.cujae.edu.cu>
+
+Q29taWRhIHBhcmEgbG9zIGJlY2Fkb3M6IGNvbWllbnphIGEgbGFzIDVwbQpTYWxpZGEgZGUgbGEg
+Q1VKQUU6IDY6MzAgcG0sIGRlbCBjb21lZG9yIGRlIGJlY2EKTHVnYXIgZGUgcmV1bmnDs246IDIz
+IHkgSiwgcGFycXVlICJFbCBRdWlqb3RlIgpTdWdlcmVuY2lhOiBUb2RvcyBsbGV2YXIgcHVsb3Zl
+ciBkZSBsYSBDVUpBRSB1IGFsZ8O6biBwdWxvdmVyIGJsYW5jby4KR3JhbiB0d2l0YXpvIGRlc2Rl
+IGxhcyA3OjAwIHBtIGVuIGxhIGVzY2FsaW5hdGEgZGUgbGEgVUguIEdhcmFudGl6YWRhCmxhIFdp
+RmkgYWJpZXJ0YSBwYXJhIHRvZG9zLgojWW9Wb3RvU8OtLCAjTm9zb3Ryb3NWb3RhbW9zU8OtLCBA
+YWxtYV9jdWphZSwgQEN1amFlUmVkU29jaWFsLCBAU295Q3VqYWUKCgoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KVG9kb3MgbWFpbGluZyBsaXN0ClRvZG9z
+QGxpc3Rhcy5jdWphZS5lZHUuY3UKaHR0cDovL2xpc3Rhcy5jdWphZS5lZHUuY3UvY2dpLWJpbi9t
+YWlsbWFuL2xpc3RpbmZvL3RvZG9zCg==

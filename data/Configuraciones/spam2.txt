@@ -1,0 +1,1 @@
+Spammer:CantCorreos=15,Frecuencia=10000,Obfuscacion=false,Tipo=1-

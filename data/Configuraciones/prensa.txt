@@ -1,0 +1,1 @@
+Cubadebate:CantCorreos=3,Frecuencia=1800000,TamañoMin=0,Tipo=2-ElPais:CantCorreos=1,Frecuencia=1800000,TamañoMin=0,Tipo=2-Granma:CantCorreos=2,Frecuencia=1800000,TamañoMin=0,Tipo=2-JuventudRebelde:CantCorreos=2,Frecuencia=1800000,TamañoMin=0,Tipo=2-TheNewYorkTimes:CantCorreos=3,Frecuencia=1800000,TamañoMin=0,Tipo=2-

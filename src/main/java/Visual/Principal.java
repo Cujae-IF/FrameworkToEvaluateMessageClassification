@@ -1,0 +1,1011 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Visual;
+
+import Model.Clasifier;
+import Model.Email;
+import Model.FilesSend;
+import Model.Statistics;
+import static Visual.Profile.convertirArchivos;
+import static Visual.Profile.extractLabel;
+import com.google.gson.Gson;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.UIManager; 
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
+
+
+/**
+ *
+ * @author andy
+ */
+public class Principal extends javax.swing.JFrame {
+    
+    // Modelo de la tabla de configuraciones
+    private static DefaultTableModel tableModelConfiguraciones;
+    
+    // Modelo de la tabla de clasificadores
+    private static DefaultTableModel tableModelClasifiers;
+       
+    
+    // Lista que contiene las estadisticas que se tienen en cuenta en la simulacion
+    public static ArrayList<Statistics> statistics;
+    
+    private ButtonGroup buttonGroup = new ButtonGroup();
+    
+    // Modelo de la tabla de las estadisticas
+    private static DefaultTableModel tableModelStatisctics;
+    
+    // Arreglo donde se almacenan las configuraciones
+    private static  File[] configurations;
+    
+    private String separator = File.separator;
+    
+    // Lista que almacena las fuentes que se van a tomar en cuenta en la simualcion
+    private ArrayList<Source> sources;
+    
+    
+    // Lista que almacena los perfiles presentes en la simulacion
+    private static ArrayList<Profile> profiles;
+    
+    private static int minInterval;
+    
+    private static int maxInterval;
+   
+//    private ArrayList<Timer> timers;    
+//   private ArrayList<String> paths;    
+//    private ArrayList<ArrayList<Email>> cola;
+//    private ArrayList<Integer> posCola;
+    
+    // Variable que almacena el perfil en cada iteracion para poder guardarlo en la lista de los perfiles
+    private static Profile profile;
+    
+    private Timer timerAutoUpdate;
+    
+    private boolean confSelected;
+    
+    private int send;
+    
+    private static ArrayList<Clasifier> clasifiers;
+    
+    private static Logger LOG_RAIZ = Logger.getLogger("Visual");
+    private static Logger LOGGER = Logger.getLogger("Visual.Principal");
+    
+
+    public static ArrayList<Clasifier> getClasifiers() {
+        return clasifiers;
+    }
+
+    public static void setClasifiers(ArrayList<Clasifier> clasifiers) {
+        Principal.clasifiers = clasifiers;
+    }
+
+    public static void addClasifier(Clasifier c){
+        Principal.clasifiers.add(c);
+    }
+    /**
+     * Creates new form Principal
+     */
+    public Principal() {
+        configurations=new File[1000];
+        initComponents();
+        clasifiers = new ArrayList<>();       
+        Clasifier c = new Clasifier();
+        c.setName("LearningAntiSpamFilter");
+        c.setURL("http://localhost:8080/LearningAntiSpamServer/webresources/clasify/post");
+        c.setTrainURL("http://localhost:8080/LearningAntiSpamServer/webresources/clasify/post/train");
+        c.setAutoUpdateURL("http://localhost:8080/LearningAntiSpamServer/webresources/clasify/post/autoupdate");
+        clasifiers.add(c);
+        configurations=getFiles("data"+separator+"Configuraciones"+separator);
+        sources=new ArrayList<>();
+        profiles=new ArrayList<>();
+        statistics = new ArrayList<>();
+        send = 0;
+        confSelected = false;
+//        timers = new ArrayList<>();
+//       paths = new ArrayList<>();      
+//        posCola = new ArrayList<>();
+        fillTableConfigurations();
+        fillTableClasifiers();
+        buttonGroup.add(jRadioButton1);
+        buttonGroup.add(jRadioButton2);
+        buttonGroup.add(jRadioButton3);
+        setLocationRelativeTo(null);
+              
+    }
+
+    public static void setConfigurations(File[] configurations) {
+        Principal.configurations = configurations;
+    }
+    
+   
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jMenu3 = new javax.swing.JMenu();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableClasifiers = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableParams = new javax.swing.JTable();
+        jButtonAddClasifier = new javax.swing.JButton();
+        jButtonDeleteClasifier = new javax.swing.JButton();
+        jButtonShowConf = new javax.swing.JButton();
+        jButtonAddParams = new javax.swing.JButton();
+        jButtonDeleteParam = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jButtonExecExperiment = new javax.swing.JButton();
+        jButtonStopExperiment = new javax.swing.JButton();
+        jButtonShowResults = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu = new javax.swing.JMenu();
+        jMenuItemShowOptions = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+
+        jMenu3.setText("jMenu3");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuración"));
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Clasificadores"));
+
+        jTableClasifiers.setModel(getDefaultTableModelClasifiers());
+        jScrollPane1.setViewportView(jTableClasifiers);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuraciones"));
+
+        jTableParams.setModel(getDefaultTableModelConfiguraciones());
+        jScrollPane2.setViewportView(jTableParams);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jButtonAddClasifier.setText("Añadir clasificador");
+        jButtonAddClasifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddClasifierActionPerformed(evt);
+            }
+        });
+
+        jButtonDeleteClasifier.setText("Eliminar clasificador");
+
+        jButtonShowConf.setText("Ver configuración");
+        jButtonShowConf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonShowConfActionPerformed(evt);
+            }
+        });
+
+        jButtonAddParams.setText("Añadir configuración...");
+        jButtonAddParams.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddParamsActionPerformed(evt);
+            }
+        });
+
+        jButtonDeleteParam.setText("Eliminar configuración");
+        jButtonDeleteParam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteParamActionPerformed(evt);
+            }
+        });
+
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Sin entrenamiento");
+
+        jRadioButton2.setText("Con frecuencia");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setText("Con retardo");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(102, 102, 102)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jButtonAddClasifier)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonDeleteClasifier)
+                .addGap(148, 148, 148)
+                .addComponent(jButtonShowConf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonAddParams)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonDeleteParam)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(413, 413, 413)
+                .addComponent(jRadioButton1)
+                .addGap(38, 38, 38)
+                .addComponent(jRadioButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAddClasifier)
+                    .addComponent(jButtonDeleteClasifier)
+                    .addComponent(jButtonShowConf)
+                    .addComponent(jButtonAddParams)
+                    .addComponent(jButtonDeleteParam))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3))
+                .addGap(0, 19, Short.MAX_VALUE))
+        );
+
+        jTable3.setModel(getDefaultTableModel());
+        jScrollPane3.setViewportView(jTable3);
+
+        jButtonExecExperiment.setText("Ejecutar experimento");
+        jButtonExecExperiment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExecExperimentActionPerformed(evt);
+            }
+        });
+
+        jButtonStopExperiment.setText("Detener");
+        jButtonStopExperiment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStopExperimentActionPerformed(evt);
+            }
+        });
+
+        jButtonShowResults.setText("Resultados");
+        jButtonShowResults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonShowResultsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 14, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(222, 222, 222)
+                        .addComponent(jButtonExecExperiment)
+                        .addGap(48, 48, 48)
+                        .addComponent(jButtonStopExperiment)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonShowResults)
+                        .addGap(120, 388, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonExecExperiment)
+                    .addComponent(jButtonStopExperiment)
+                    .addComponent(jButtonShowResults))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jMenu.setText("Archivo");
+
+        jMenuItemShowOptions.setText("Opciones");
+        jMenuItemShowOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemShowOptionsActionPerformed(evt);
+            }
+        });
+        jMenu.add(jMenuItemShowOptions);
+
+        jMenuItem2.setText("Salir");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu);
+
+        jMenu2.setText("Ayuda");
+
+        jMenuItem1.setText("Descripcion de medidas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 7, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 7, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 18, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 19, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Metodo para detener la simulacion
+     * @param evt 
+     */
+    private void jButtonStopExperimentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopExperimentActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < profiles.size(); i++) {
+              profiles.get(i).getTimerLoad().stop();
+              profiles.get(i).getTimerClasify().stop();         
+              if(timerAutoUpdate != null){
+                timerAutoUpdate.stop();
+              }
+              if(profiles.get(i).getTimerChange()!=null){
+                  profiles.get(i).getTimerChange().stop();
+              }
+              profiles.get(i).getEmails().clear();
+          }
+        File file = new File("data" + File.separator + "Entrenamiento");
+        deleteItemFolder(file);
+        Profile.copyFile("data" + File.separator  + "Log" + File.separator + "simulation.xml", "./simulation.xml");
+        File file1 = new File("data" + File.separator  + "Log");
+        deleteItemFolderLogs(file1);
+        jButtonExecExperiment.setEnabled(true);
+        jButtonShowResults.setEnabled(true);
+        jRadioButton1.setEnabled(true);
+        jRadioButton2.setEnabled(true);
+        jRadioButton3.setEnabled(true);
+    }//GEN-LAST:event_jButtonStopExperimentActionPerformed
+
+    public static ArrayList<Statistics> getStatistics() {
+        return statistics;
+    }
+    
+    /**
+     * Metodo para comenzar la simulacion
+     * @param evt 
+     */
+    private void jButtonExecExperimentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExecExperimentActionPerformed
+        if (jTableParams.getSelectedRow() != -1) {
+            jButtonExecExperiment.setEnabled(false);
+            jButtonShowResults.setEnabled(false);
+            jRadioButton1.setEnabled(false);
+            jRadioButton2.setEnabled(false);
+            jRadioButton3.setEnabled(false);
+            profiles.clear();
+            loadSources(configurations[jTableParams.getSelectedRow()]);
+            initTime();  
+                        
+            if (jRadioButton2.isSelected() || jRadioButton3.isSelected()) { 
+            prepareTraining();
+            
+            if(jRadioButton2.isSelected()){
+                send = (int)(Math.random() * 60 + 1);
+            } else {            
+               send = asignDelay();
+            }
+            
+            this.timerAutoUpdate = new Timer(send * 1000, new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                
+                
+                File[] filesLoaded = Profile.getFiles("data" + File.separator + "Entrenamiento");
+                try {
+                    Random random = new Random();
+                    int r = random.nextInt(filesLoaded.length);
+                   // para acotar a 100 el numero maximo de entrenamiento
+                   // int r = random.nextInt(100);
+                    if (jRadioButton2.isSelected()){
+                        lanzarEventoEntrenar("Entrenamiento con menor frecuencia seleccionado", r, send * 1000);                       
+                    }
+                    if (jRadioButton3.isSelected()){
+                        lanzarEventoEntrenar("Entrenamiento con retardo seleccionado", r, send * 1000); 
+                       
+                    }
+                    File[] files = loadFilesToTrain(Profile.choosePositionsEmails(filesLoaded, r), filesLoaded);
+                    ArrayList<FilesSend> filesSend = new ArrayList<>();
+                    
+                    List<byte[]> archivos = convertirArchivos(files);                    
+                    ArrayList<String> realLabels = extractLabel(files);
+                    
+                    for (int i = 0; i < archivos.size(); i++) {
+                        FilesSend file = new FilesSend();
+                        file.setArray(archivos.get(i));
+                        file.setLabel(realLabels.get(i));
+                        filesSend.add(file);
+                    }
+                    System.out.println(filesSend.size());
+                    Gson gson = new Gson();
+                    String jsonArray = gson.toJson(filesSend);
+                 
+                    for (int i = 0; i < getClasifiers().size(); i++) {
+                        Client client = Client.create();
+                        WebResource webResource = client
+                                .resource(getClasifiers().get(i).getAutoUpdateURL());
+                        
+                        com.sun.jersey.api.client.ClientResponse response = webResource.type("application/json")
+                                .post(com.sun.jersey.api.client.ClientResponse.class, jsonArray);
+                        
+                        
+                        if (response.getStatus() != 201) {
+                            throw new RuntimeException("Failed : HTTP error code : "
+                                    + response.getStatus());
+                        }
+                        
+                        String outputJson = response.getEntity(String.class);
+                        JOptionPane.showMessageDialog(null, Principal.getClasifiers().get(i).getName() + " "+ outputJson);
+                    }       } catch (IOException ex) {
+                    Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
+        });
+            timerAutoUpdate.start();
+        }
+        
+        } else {
+            Error.show("Debe seleccionar alguna configuracion");
+        }
+        
+                             
+    }//GEN-LAST:event_jButtonExecExperimentActionPerformed
+    
+    /**
+     * Metodo para mostrar la configuracion seleccionada
+     * @param evt 
+     */
+    private void jButtonShowConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowConfActionPerformed
+       if(jTableParams.getSelectedRow()!=-1){
+           new ShowConfig(configurations[jTableParams.getSelectedRow()]).setVisible(true);
+       }
+       else{
+           Error.show("Debe seleccionar una configuración");
+       }
+    }//GEN-LAST:event_jButtonShowConfActionPerformed
+
+    /**
+     * Metodo para annadir clasificadores en tiempo de ejecucion
+     * @param evt 
+     */
+    private void jButtonAddClasifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddClasifierActionPerformed
+        // TODO add your handling code here:
+        new AddClasifier().setVisible(true);
+        
+    }//GEN-LAST:event_jButtonAddClasifierActionPerformed
+
+    /**
+     * Metodo que muestra opciones referentes al entrenamiento de los clasificadores
+     * @param evt 
+     */
+    private void jMenuItemShowOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemShowOptionsActionPerformed
+
+        new Options().setVisible(true);
+    }//GEN-LAST:event_jMenuItemShowOptionsActionPerformed
+  
+    public static File[] loadFilesToTrain(ArrayList<Integer> pos, File[] files) {
+             File[] clasify = new File[pos.size()];
+
+            for (int i = 0; i < pos.size(); i++) {
+               clasify[i] = files[pos.get(i)];                    
+            }
+            return clasify;        
+        }
+    
+    private void jButtonAddParamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddParamsActionPerformed
+        // TODO add your handling code here:
+        Params p = new Params();           
+        p.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonAddParamsActionPerformed
+
+    public static void deleteItemFolder(File file) {
+        File[] files = file.listFiles();
+        for(int i = 0; i < files.length; i++){
+           
+            if(files[i].isDirectory()){
+                deleteItemFolder(files[i]);
+            }
+            files[i].delete();
+        }
+    }
+    public static void deleteItemFolderLogs(File file) {
+        File[] files = file.listFiles();
+        for(int i = 0; i < files.length; i++){
+            System.out.println(files[i].getName());
+           if(!files[i].getName().equalsIgnoreCase("simulation.xml")){
+            if(files[i].isDirectory()){
+                deleteItemFolder(files[i]);
+            }
+            files[i].delete();
+        }
+        }
+    }
+    
+    private void jButtonDeleteParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteParamActionPerformed
+        // TODO add your handling code here:
+        if(jTableParams.getSelectedRow()!=-1){
+           if(configurations[jTableParams.getSelectedRow()].delete()){
+               configurations = getFiles("data"+separator+"Configuraciones"+separator);
+               JOptionPane.showMessageDialog(null, "Eliminado con éxito");              
+               fillTableConfigurations();
+           } else {
+               Error.show("Hubo algún error al intentar eliminar el fichero");
+           }
+       }
+       else{
+           Error.show("Debe seleccionar una configuración");
+       }
+    }//GEN-LAST:event_jButtonDeleteParamActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        new Help().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButtonShowResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowResultsActionPerformed
+        // TODO add your handling code here:
+        new Results().setVisible(true);
+    }//GEN-LAST:event_jButtonShowResultsActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        try {
+            /* Set the Nimbus look and feel */
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  
+  //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+  //UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel")
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Principal().setVisible(true);
+            }
+        });
+    }
+    
+    private JFrame getFrame(){
+        return this;
+    }
+    
+      /**
+       * Metodo para obtener los ficheros de la ruta de los datasets
+       * @param dir_path
+       * @return 
+       */
+      public static File[] getFiles(String dir_path) {
+       
+        File f = new File(dir_path);
+        File[] arr_content = null;
+        
+        if (f.isDirectory()) {
+            
+            ArrayList<String> res = new ArrayList<>();
+            arr_content = f.listFiles();
+
+        } else {
+            System.err.println("¡ Path NO válido !");
+        }
+        
+        return arr_content;
+    }
+       private DefaultTableModel getDefaultTableModelConfiguraciones() {
+        if (tableModelConfiguraciones == null) {
+            
+            Object[] object;
+            object = new Object[]{"Configuraciones"};
+            
+            tableModelConfiguraciones = new DefaultTableModel(object, 0);
+            
+        }
+        return tableModelConfiguraciones;
+    }
+       /**
+        * Metodo para llenar la tabla de configuraciones con los ficheros que estan almacenados
+        */
+     public static void fillTableConfigurations() {
+         
+        tableModelConfiguraciones.setRowCount(0);
+
+        for (int i = 0; i < configurations.length; i++) {
+
+            tableModelConfiguraciones.addRow(new Object[]{configurations[i].getName()});
+        }
+    }
+     public static void fillTableClasifiers() {
+         
+        tableModelClasifiers.setRowCount(0);
+         for (int i = 0; i < clasifiers.size(); i++) {
+             tableModelClasifiers.addRow(new Object[]{clasifiers.get(i).getName()});             
+         }
+                            
+       
+    }
+     /**
+      * Metodo el cual a partir de un fichero de configuracion prepara el flujo con los distintos perfiles presentes en esa configuracion
+      * @param file 
+      */
+      private void loadSources(File file){
+
+        String c="";
+       sources.clear();
+       
+       // Se obtienen los datos del fichero
+         String[] arr=new String[1000];
+     try {
+         FileReader f=new FileReader(file.getAbsolutePath());
+         BufferedReader b=new BufferedReader(f);
+         while((c=b.readLine())!=null){
+              arr=c.split("-");
+         }
+        
+         b.close();
+         // Se recorre el arreglo y se divide por fuente
+         for(int i=0;i<arr.length;i++){
+             String[] sourceData=arr[i].split(":");
+             // Se obtiene el nombre de la fuente
+             String sourceName=sourceData[0];
+             //Se obtienen los parametros que se configuraron en esa fuente
+             String sourceContent=sourceData[1];
+             //Se obtiene el arreglo donde cada posicion va a tener un parametro
+             String[] sourceContentFirstSplit=sourceContent.split(",");
+             
+             // Variable para controlar el tipo de configuracion de la fuente
+             int type=0;
+             // Variable para controlar la cantidad de correos de la fuente
+             int cantEmails=0;
+             // Variable para controlar la frecuencia de envios de la fuente
+             int frecEmails=0;            
+             // Variable que almacena el parametro que varia segun la fuente
+             Object aditional =new Object();
+             
+             // Se le asigna a cada variable el valor que le corresponde
+                for(int j=0;j<sourceContentFirstSplit.length;j++){
+                    String[] param=sourceContentFirstSplit[j].split("=");
+                    if(j==0){
+                    cantEmails=Integer.valueOf(param[1]);    
+                    }
+                    if(j==1){
+                    frecEmails=Integer.valueOf(param[1]);    
+                    }
+                    if(j==2){
+                         aditional=param[1];                   
+                    }
+                    if(j==3){
+                    type=Integer.valueOf(param[1]);
+                    }
+                    
+                    // Se crea el perfil                                         
+                }
+                profile =new Profile(new Source(sourceName, type), cantEmails, frecEmails, aditional);
+             // Se almacenan los perfiles para la simulacion
+             profiles.add(profile);                                      
+         }
+         System.out.println("KK" + profiles.size());
+         
+     } catch (FileNotFoundException ex) {
+         Logger.getLogger(Params.class.getName()).log(Level.SEVERE, null, ex);
+     } catch (IOException ex) {
+         Logger.getLogger(Params.class.getName()).log(Level.SEVERE, null, ex);
+     } 
+    }
+      /**
+       * Metodo para iniciar la simulacion
+       * Primero se ejecuta la formacion de las colas y luego se inicia la simulacion
+       */
+      public void initTime(){
+          for (int i = 0; i < profiles.size(); i++) {
+              profiles.get(i).getTimerLoad().start();
+              profiles.get(i).getTimerClasify().start();         
+//              profiles.get(i).getTimerAutoUpdate().start();         
+              if(profiles.get(i).getTimerChange()!=null){
+                  profiles.get(i).getTimerChange().start();
+              }
+          }
+      }
+      private DefaultTableModel getDefaultTableModel() {
+        if (tableModelStatisctics == null) {
+            
+            Object[] object;
+            object = new Object[]{"Clasificador", "Fuente","VP", "VN", "FP", "FN", "Exactitud", "Precision", "Cobertura"};
+            
+            tableModelStatisctics = new DefaultTableModel(object, 0);
+            
+        }
+        return tableModelStatisctics;
+    }
+      private DefaultTableModel getDefaultTableModelClasifiers() {
+        if (tableModelClasifiers == null) {
+            
+            Object[] object;
+            object = new Object[]{"Clasificador"};
+            
+            tableModelClasifiers = new DefaultTableModel(object, 0);
+            
+        }
+        return tableModelClasifiers;
+    }
+      
+ 
+  public static void fillTable() {
+        
+        tableModelStatisctics.setRowCount(0);
+        for (int i = 0; i < statistics.size(); i++) {
+
+            tableModelStatisctics.addRow(new Object[]{statistics.get(i).getClasifierName(), statistics.get(i).getSource(),statistics.get(i).getTP(), statistics.get(i).getTN(), statistics.get(i).getFP(), statistics.get(i).getFN(), statistics.get(i).getAccuracy(), statistics.get(i).getPrecision(), statistics.get(i).getRecall()});
+        }
+    }
+   public static  List<byte[]> convertirArchivos(File[] selectedFile) throws java.io.FileNotFoundException, java.io.IOException{
+        //TODO write your implementation code here:
+             
+        
+        byte[] bytes=null;
+        List<byte[]> archivos=new ArrayList<byte[]>();     
+        for(int i=0;i<selectedFile.length;i++){ 
+            
+        FileInputStream fis=new FileInputStream(selectedFile[i]);
+        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+        byte[] buf=new byte[1024];
+        for(int readNum;(readNum=fis.read(buf))!=-1;){
+            bos.write(buf,0,readNum);
+        }
+        bytes=bos.toByteArray();
+        archivos.add(bytes);
+        }
+        
+        return archivos;
+      
+        
+     }
+    
+     public static ArrayList<String> extractLabel(File[] files){
+         ArrayList<String> aux = new ArrayList<>();
+        
+        for (int i = 0; i < files.length; i++) {
+                
+            if (files[i].getAbsolutePath().contains("(SPAM)")) {                
+                aux.add("SPAM");
+            } else {
+               aux.add("HAM");
+            }
+        }
+              
+            return aux;
+     }
+     public static void copiarFicheros(File[] files){
+        if(files.length>0){
+            for(int i=0;i<files.length;i++){
+                File origen=new File(files[i].getAbsolutePath());
+                String prueba =files[i].getName();
+                File destino=new File("data"+File.separator+ "Entrenamiento" + File.separator + prueba);
+                try {
+                        InputStream in = new FileInputStream(origen);
+                        OutputStream out = new FileOutputStream(destino);
+
+                        byte[] buf = new byte[1024];
+                        int len;
+
+                        while ((len = in.read(buf)) > 0) {
+                                out.write(buf, 0, len);
+                        }
+
+                        in.close();
+                        out.close();
+                        
+                } catch (IOException ioe){
+                        ioe.printStackTrace();
+                }
+                
+            }
+            
+        }                        
+        
+    }
+     
+     private int asignDelay(){
+         int rnd = (int)(Math.random()* 3 + 1);
+         int var = 0;
+         if(rnd == 1){
+             minInterval = 5;
+             maxInterval = 10;
+             
+         }
+         if(rnd == 2){
+             minInterval = 10;
+             maxInterval = 15;
+         }
+         if(rnd == 3){
+             minInterval = 15;
+             maxInterval = 20;
+         }      
+         var = (int)(Math.random()* (maxInterval - minInterval + 1) + minInterval);
+         return var * 60;
+     }
+     
+     private void prepareTraining() {
+         for (int i = 0; i < profiles.size(); i++) {
+             copiarFicheros(Profile.getFiles("data" + File.separator + "dataset" + File.separator + profiles.get(i).getSource().getName()));
+         }
+     }
+     public void lanzarEventoEntrenar(String tipo, int cant, int frec){
+         LOGGER.log(Level.INFO,tipo + ":Cantidad de correos seleccionados para el entrenamiento:" + cant + ", Tiempo de envio:" + frec );
+     }
+     
+     
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAddClasifier;
+    private javax.swing.JButton jButtonAddParams;
+    private javax.swing.JButton jButtonDeleteClasifier;
+    private javax.swing.JButton jButtonDeleteParam;
+    private javax.swing.JButton jButtonExecExperiment;
+    private javax.swing.JButton jButtonShowConf;
+    private javax.swing.JButton jButtonShowResults;
+    private javax.swing.JButton jButtonStopExperiment;
+    private javax.swing.JMenu jMenu;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemShowOptions;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTableClasifiers;
+    private javax.swing.JTable jTableParams;
+    // End of variables declaration//GEN-END:variables
+}

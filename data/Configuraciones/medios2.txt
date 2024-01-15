@@ -1,0 +1,1 @@
+MediosInformativos:CantCorreos=5,Frecuencia=15000,TamañoMin=0,Tipo=2-

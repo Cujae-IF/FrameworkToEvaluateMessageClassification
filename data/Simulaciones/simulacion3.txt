@@ -1,0 +1,1 @@
+Clasificador:LearningAntiSpamFilterFuente:Spammer - Cantidad de correos:5 - VP:0 - VN:2 - FP:0 - FN:3 - Exactitud:0.4 - Precision:1.0 - Cobertura:0.0

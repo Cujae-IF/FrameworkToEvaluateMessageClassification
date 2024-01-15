@@ -1,0 +1,1 @@
+Spammer:CantCorreos=1,Frecuencia=1800000,Obfuscacion=true,Tipo=1-RedesSociales:CantCorreos=15,Frecuencia=1800000,Aleatorización=true,Tipo=3-MediosInformativos:CantCorreos=7,Frecuencia=1800000,TamañoMin=0,Tipo=2-Publicidad:CantCorreos=18,Frecuencia=1800000,Aleatorización=false,Tipo=3-

@@ -1,0 +1,1 @@
+Fuente:RedesSociales - Cantidad de correos:36 - VP:0 - VN:20 - FP:0 - FN:16 - Exactitud:0.55833334 - Precision:1.0 - Cobertura:0.0
